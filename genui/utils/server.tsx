@@ -36,39 +36,43 @@ export function streamRunnableUI<RunInput, RunOutput>(
       ReturnType<typeof createStreamableUI | typeof createStreamableValue>
     > = {};
 
-    for await (const streamEvent of (runnable as Runnable<RunInput,RunOutput>).streamEvents(
-      inputs,{
-        version:"v1",
-      })){
-        if(streamEvent.name === STREAM_UI_RUN_NAME && streamEvent.event === "on_chain_end"){
-          if(isValidElement(streamEvent.data.output.value)){
-            ui.append(streamEvent.data.output.value)
-          }
+    for await (const streamEvent of (
+      runnable as Runnable<RunInput, RunOutput>
+    ).streamEvents(inputs, {
+      version: "v1",
+    })) {
+      if (
+        streamEvent.name === STREAM_UI_RUN_NAME &&
+        streamEvent.event === "on_chain_end"
+      ) {
+        if (isValidElement(streamEvent.data.output.value)) {
+          ui.append(streamEvent.data.output.value);
         }
-
-        const [kind,type] = streamEvent.event.split("_").slice(1);
-        if(type === "stream" && kind != "chain"){
-          const chunk = streamEvent.data.chunk
-          if("text" in chunk && typeof chunk.text === "string"){
-            if(!callbacks[streamEvent.run_id]){
-              const textStream=createStreamableValue();
-              ui.append(<AIMessage value={textStream.value} />);
-              callbacks[streamEvent.run_id]=textStream
-            }
-            callbacks[streamEvent.run_id].append(chunk.text)
-          }
-        }
-
-        lastEventValue = streamEvent;
       }
 
-      resolve(lastEventValue?.data.output)
-      
-      Object.values(callbacks).forEach((cb) => cb.done())
-      ui.done()
-    })();
+      const [kind, type] = streamEvent.event.split("_").slice(1);
+      if (type === "stream" && kind != "chain") {
+        const chunk = streamEvent.data.chunk;
+        if ("text" in chunk && typeof chunk.text === "string") {
+          if (!callbacks[streamEvent.run_id]) {
+            const textStream = createStreamableValue();
+            ui.append(<AIMessage value={textStream.value} />);
+            callbacks[streamEvent.run_id] = textStream;
+          }
+          callbacks[streamEvent.run_id].append(chunk.text);
+        }
+      }
 
-    return {ui: ui.value, lastEvent}
+      lastEventValue = streamEvent;
+    }
+
+    resolve(lastEventValue?.data.output);
+
+    Object.values(callbacks).forEach((cb) => cb.done());
+    ui.done();
+  })();
+
+  return { ui: ui.value, lastEvent };
 }
 
 /*
