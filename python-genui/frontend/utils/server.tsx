@@ -83,6 +83,7 @@ export function streamRunnableUI<RunInput, RunOutput>(
           const toolCall = output.tool_calls[0];
           if (!selectedToolComponent && !selectedToolUI) {
             selectedToolComponent = TOOL_COMPONENT_MAP[toolCall.type];
+            console.log(selectedToolComponent)
             selectedToolUI = createStreamableUI(
               selectedToolComponent.loading(),
             );

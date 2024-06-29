@@ -6,13 +6,6 @@ import { Button } from "../ui/button";
 import { EndpointsContext } from "@/app/agent";
 import { useActions } from "@/utils/client";
 import { LocalContext } from "@/app/shared";
-import { RemoteRunnable } from "@langchain/core/runnables/remote";
-import { Github, GithubLoading } from "./github";
-import { Invoice, InvoiceLoading } from "./invoice";
-import { CurrentWeather, CurrentWeatherLoading } from "./weather";
-import { createStreamableUI, createStreamableValue } from "ai/rsc";
-import { StreamEvent } from "@langchain/core/tracers/log_stream";
-import { AIMessage } from "@/ai/message";
 import { HumanMessageText } from "./message";
 
 export interface ChatProps {}
