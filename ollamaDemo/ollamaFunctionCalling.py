@@ -24,7 +24,7 @@
             }
         ],
         function_call={"name": "get_current_weather"},
-    )
+    )   
 
     from langchain_core.messages import HumanMessage
 
