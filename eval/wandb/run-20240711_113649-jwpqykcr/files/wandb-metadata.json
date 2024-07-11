@@ -1,0 +1,87 @@
+{
+    "os": "Linux-6.5.0-41-generic-x86_64-with-glibc2.35",
+    "python": "3.10.12",
+    "heartbeatAt": "2024-07-11T06:07:17.256505",
+    "startedAt": "2024-07-11T06:06:49.863860",
+    "docker": null,
+    "cuda": null,
+    "args": [],
+    "state": "running",
+    "program": "llm_evaluation_harness.ipynb",
+    "codePathLocal": "llm_evaluation_harness.ipynb",
+    "root": "/home/debian/source/repos/GenAi",
+    "git": {
+        "remote": "git@github.com:tanmaylokhande0307/GenAi.git",
+        "commit": "684ada0d28da9513ac3b2436a4222054bd5782f9"
+    },
+    "email": "tl@zasmlabs.com",
+    "host": "debian",
+    "username": "debian",
+    "executable": "/home/debian/source/repos/BIMPoC/pythonenv/bin/python3",
+    "cpu_count": 4,
+    "cpu_count_logical": 8,
+    "cpu_freq": {
+        "current": 2109.8831250000003,
+        "min": 800.0,
+        "max": 4500.0
+    },
+    "cpu_freq_per_core": [
+        {
+            "current": 2499.996,
+            "min": 800.0,
+            "max": 4500.0
+        },
+        {
+            "current": 2499.99,
+            "min": 800.0,
+            "max": 4500.0
+        },
+        {
+            "current": 2499.999,
+            "min": 800.0,
+            "max": 4500.0
+        },
+        {
+            "current": 2500.007,
+            "min": 800.0,
+            "max": 4500.0
+        },
+        {
+            "current": 2500.003,
+            "min": 800.0,
+            "max": 4500.0
+        },
+        {
+            "current": 2500.0,
+            "min": 800.0,
+            "max": 4500.0
+        },
+        {
+            "current": 2500.014,
+            "min": 800.0,
+            "max": 4500.0
+        },
+        {
+            "current": 2500.003,
+            "min": 800.0,
+            "max": 4500.0
+        }
+    ],
+    "disk": {
+        "/": {
+            "total": 222.72268676757812,
+            "used": 72.74423599243164
+        }
+    },
+    "gpu": "NVIDIA GeForce GTX 1650",
+    "gpu_count": 1,
+    "gpu_devices": [
+        {
+            "name": "NVIDIA GeForce GTX 1650",
+            "memory_total": 4294967296
+        }
+    ],
+    "memory": {
+        "total": 7.615848541259766
+    }
+}
