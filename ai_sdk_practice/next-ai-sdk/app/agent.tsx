@@ -1,9 +1,11 @@
 import { exposeEndpoints } from "@/utils/server";
 import { RemoteRunnable } from "@langchain/core/runnables/remote";
+import { streamText } from "ai";
+
 // import { exposeEndpoints, streamRunnableUI } from "@/utils/server";
 import "server-only";
 
-const API_URL = "http://localhost:8000/chat";
+const API_URL = "http://localhost:8000/response";
 
 export async function agent() {
   // inputs: {
@@ -19,47 +21,17 @@ export async function agent() {
     url: API_URL,
   });
 
-  for await (const streamEvent of remoteRunnable.streamEvents("What is BIM", {
-    version: "v1",
-  })) {
-    const { output, chunk } = streamEvent.data;
-    // const [type] = streamEvent.event.split("_").slice(2);
-    const type = streamEvent.event;
+  const result = await remoteRunnable.stream({
+    question: "What is transformer",
+    config: {},
+    kwargs: {},
+  });
 
-    // console.log("streamEvent", streamEvent);
-
-    if (type === "end" && output && typeof output === "object") {
-      if (streamEvent.name === "invoke_model") {
-        // handleInvokeModelEvent(output);
-        console.log("output", output);
-      } else if (streamEvent.name === "invoke_tools") {
-        // handleInvokeToolsEvent(output);
-        console.log(output);
-      }
-    }
-
-    // if (type === "on_chain_stream") {
-    //   console.log(chunk);
-    // }
-
-    if (type === "on_llm_stream") {
-      console.log(chunk);
-    }
-    // if (type === "on_parser_stream") {
-    //   console.log(chunk);
-    // }
-
-    if (
-      streamEvent.event === "on_chat_model_stream" &&
-      chunk &&
-      typeof chunk === "object"
-    ) {
-      //   handleChatModelStreamEvent(streamEvent, chunk);
-      console.log("chunk", chunk);
-      console.log("streamevent", streamEvent);
-    }
+  for await (const chunk of result  ) {
+    console.log(chunk);
   }
-
+  
+  
   // const stream = await remoteRunnable.invoke({
   //   input: "What is BIM",
   // });
