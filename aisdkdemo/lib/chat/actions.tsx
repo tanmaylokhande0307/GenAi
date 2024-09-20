@@ -30,7 +30,7 @@ const genAI = new GoogleGenerativeAI(
 );
 
 const google = createGoogleGenerativeAI({
-  apiKey: "AIzaSyDZhmsfAK3_v9noUhoNjToRBmn0g5HZfM8",
+  apiKey: "apikey",
 });
 
 export const streamResponse = async () => {
