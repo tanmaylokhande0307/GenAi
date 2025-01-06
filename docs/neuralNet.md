@@ -9,3 +9,5 @@ weight and biases
 initiate with random weight and bias
 
 network learning means minimize the value of cost function
+
+Backpropagation is an algorithm to determine how a single training example should nudge the weights and baises of the network to decrease the cost 
