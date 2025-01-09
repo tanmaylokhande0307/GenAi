@@ -24,3 +24,5 @@ Break a bigger sentence in tokens
 - WordEmbeddings
 - Unembeddings
 
+
+![transformer](transformer.png)
