@@ -22,7 +22,7 @@ Dot product
 Break a bigger sentence in tokens
 
 - WordEmbeddings
-- Unembeddings
+- Unembedding
 
 
 ![transformer](transformer.png)
