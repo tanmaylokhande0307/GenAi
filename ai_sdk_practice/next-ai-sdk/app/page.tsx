@@ -16,14 +16,14 @@ import { readStreamableValue } from "ai/rsc";
 
 const API_URL = "http://localhost:8000/response";
 
-// inputs: {
-//   input: string;
-//   chat_history: [role: string, content: string][];
-//   file?: {
-//     base64: string;
-//     extension: string;
-//   };
-// }
+inputs: {
+  input: string;
+  chat_history: [role: string, content: string][];
+  file?: {
+    base64: string;
+    extension: string;
+  };
+}
 const remoteRunnable = new RemoteRunnable({
   url: API_URL,
 });
