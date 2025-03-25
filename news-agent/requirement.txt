@@ -1,0 +1,11 @@
+requests
+beautifulsoup4
+newspaper3k
+langchain
+huggingface_hub
+langchain_community
+lxml[html_clean]
+cssselect
+pillow
+tqdm
+nltk
