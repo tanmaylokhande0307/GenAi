@@ -4,11 +4,18 @@ from langchain.llms import HuggingFaceHub
 import requests
 from bs4 import BeautifulSoup
 from newspaper import Article
+from langchain.agents import create_tool_calling_agent
+from langchain.agents import AgentExecutor
+from langchain import hub
+from langchain.tools.retriever import create_retriever_tool
+
+
+
 
 import os
 from langchain.llms import HuggingFaceHub
 
-os.environ["HUGGINGFACEHUB_API_TOKEN"] = "your_huggingface_api_token"
+os.environ["HUGGINGFACEHUB_API_TOKEN"] = "hf token"
 
 def get_toi_articles():
     url = "https://timesofindia.indiatimes.com/"
@@ -48,25 +55,21 @@ def fetch_news_by_keywords(keywords: str):
     articles = get_toi_articles()
     return filter_articles_by_keywords(articles, keyword_list)
 
-news_tool = Tool(
-    name="News Fetcher",
-    func=fetch_news_by_keywords,
-    description="Fetch latest articles from Times of India based on provided keywords"
+news_tool = create_retriever_tool(
+    fetch_news_by_keywords,
+    "News Fetcher",
+    "Fetch latest articles from Times of India based on provided keywords!",
 )
 
-llm = HuggingFaceHub(repo_id="deepseek-ai/deepseek-llm-7b-chat", model_kwargs={"temperature": 0.7, "max_length": 512})
+prompt = hub.pull("hwchase17/openai-functions-agent")
 
-agent = initialize_agent(
-    tools=[news_tool],
-    llm=llm,
-    agent="zero-shot-react-description",
-    verbose=True
-)
 
-def main():
-    query = "technology, finance, politics"  # Modify keywords as needed
-    response = agent.run(query)
-    print(response)
+llm = HuggingFaceHub(repo_id="meta-llama/Llama-3.2-3B-Instruct", model_kwargs={"temperature": 0.7, "max_length": 512})
 
-if __name__ == "__main__":
-    main()
+agent = create_tool_calling_agent(llm, news_tool, prompt)
+
+agent_executor = AgentExecutor(agent=agent, tools=news_tool, verbose=True)
+
+print(agent_executor.invoke({"input": "Top 5 news on construction"}))
+
+
